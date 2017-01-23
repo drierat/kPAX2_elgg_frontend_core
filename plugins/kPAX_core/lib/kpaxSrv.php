@@ -107,32 +107,38 @@ class kpaxSrv {
    */
   public function getGame($gameId, $campusSession) {
     return $this->service('/game/' . $gameId);
+
   }
 
     //TODO (other plugin?)
-    public function addLikeGame($campusSession, $containerId, $productId) {
-      $body = 'secretSession=' . $campusSession . '&containerId=' . $containerId;
-      //return $this->service("/game/like/" . $productId . "/add", "POST", $body);
-      return $this->service("/game/" . $productId . "/like/", "POST", $body);
+    //public function addLikeGame($campusSession, $containerId, $productId) {
+      public function addLikeGame($containerId, $productId) {
+     // $body = 'secretSession=' . $campusSession . '&containerId=' . $containerId;
+       $body = 'containerId=' . $containerId;
+     //return $this->service("/game/like/" . $productId . "/add", "POST", $body);
+      return $this->service("/game/like", "POST", 36);
     }
 
     //TODO (other plugin?)
-    public function delLikeGame($campusSession, $containerId, $productId) {
-        $body = 'secretSession=' . $campusSession . '&containerId=' . $containerId;
-        //$this->service("/game/like/" . $productId . "/del", "POST", $body);
-        $this->service("/game/" . $productId . "/unlike/", "POST", $body);
+    //public function delLikeGame($campusSession, $containerId, $productId) {
+      public function delLikeGame($containerId, $productId){
+    //$body = 'secretSession=' . $campusSession . '&containerId=' . $containerId;
+      $body = 'containerId=' . $containerId;
+    //$this->service("/game/like/" . $productId . "/del", "POST", $body);
+      $this->service("/game/" . $productId . "/unlike", "POST", $body);
     }
 
     //TODO (other plugin?)
     public function getLikesGame($campusSession, &$entity) {
-      //return $this->service("/game/like/" . $campusSession . "/list/" . $entity->getGuid());
-      return $this->service("/game/" . $campusSession . "/list/" . $entity->getGuid());
+      return $this->service("/game/like" . $campusSession . "/list/" . $entity->getGuid());
+
     }
 
     //TODO (other plugin?)
     public function getLikeGame($campusSession, $idEntity) {
       //return $this->service("/game/like/" . $campusSession . "/get/" . $idEntity);
       return $this->service("/game/" . $campusSession . "/get/" . $idEntity);
+
     }
 
   /**
@@ -168,7 +174,7 @@ class kpaxSrv {
    * getUserListGames
    * API2
    */
-  public function getUserListGames($owner, $campusSession) {
+ public function getUserListGames($owner, $campusSession) {
     return $this->service('/game/list?q={owner:' . $owner. '}' );
 
   }
